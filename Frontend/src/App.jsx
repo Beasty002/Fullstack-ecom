@@ -23,6 +23,7 @@ const App = () => {
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/product/:productId' element={<Product />} />
+        {/* ':' colon use garesin telle route parameter prefix ho vanxa meaning uta jaa batta yellai call garxa tya baata hamle value pathaucahm */}
         <Route path='/cart' element={<cart />} />
         <Route path='/login' element={<Login />} />
         <Route path='/orders' element={<Orders />} />
