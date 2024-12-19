@@ -13,6 +13,7 @@ import Footer from './components/Footer'
 import SearchBar from './components/searchBar'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Cart from './pages/Cart'
 
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/product/:productId' element={<Product />} />
         {/* ':' colon use garesin telle route parameter prefix ho vanxa meaning uta jaa batta yellai call garxa tya baata hamle value pathaucahm */}
-        <Route path='/cart' element={<cart />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/place-order' element={<PlaceOrder />} />
