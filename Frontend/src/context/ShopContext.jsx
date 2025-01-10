@@ -11,7 +11,7 @@ const ShopContextProvider = (props) => {
     const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(true);
-    const [cartItems, setCartitems] = useState({});
+    const [cartItems, setCartItems] = useState({});
     const [products, setProducts] = useState([]);
     const navigate = useNavigate();
     const [token, setToken] = useState('')
@@ -36,7 +36,7 @@ const ShopContextProvider = (props) => {
             cartData[itemId] = {};
             cartData[itemId][size] = 1
         }
-        setCartitems(cartData)
+        setCartItems(cartData)
     }
 
     const getCartCount = () => {
@@ -57,7 +57,7 @@ const ShopContextProvider = (props) => {
     const updateQuantity = async (itemId, size, quantity) => {
         let cartData = structuredClone(cartItems);
         cartData[itemId][size] = Number(quantity)
-        setCartitems(cartData);
+        setCartItems(cartData);
     }
 
     const getCartAmount = () => {
@@ -99,6 +99,12 @@ const ShopContextProvider = (props) => {
         getProductsData()
     }, [])
 
+    useEffect(() => {
+        if (!token && localStorage.getItem('token')) {
+            setToken(localStorage.getItem('token'))
+        }
+    }, [])
+
 
 
 
@@ -107,7 +113,7 @@ const ShopContextProvider = (props) => {
     const value = {
         products, currency, delivery_fee,
         search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart,
+        cartItems, setCartItems, addToCart,
         getCartCount, updateQuantity,
         getCartAmount, navigate, backendUrl,
         token, setToken
