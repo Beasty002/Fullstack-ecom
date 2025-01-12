@@ -1,4 +1,4 @@
-import { jwt } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const authUser = async (req, res, next) => {
     const { token } = req.headers;
@@ -12,7 +12,7 @@ const authUser = async (req, res, next) => {
         next()
 
     } catch (error) {
-        console.log(eroor);
+        console.log(error);
         res.json({ success: false, message: error.message })
 
     }
