@@ -18,6 +18,6 @@ orderRouter.post('/place/stripe', authUser, placeOrderStripe)
 
 //userFeatures
 
-orderRouter.get('/userOrders', authUser, userOrders)
+orderRouter.post('/userorders', authUser, userOrders)
 
 export default orderRouter
