@@ -3,6 +3,8 @@ import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { assets } from '../assets/assets'
 import { ShopContext } from '../context/ShopContext'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
 const PlaceOrder = () => {
 
@@ -18,7 +20,7 @@ const PlaceOrder = () => {
         city: '',
         state: '',
         zipcode: '',
-        coutnry: '',
+        country: '',
         phone: ''
     })
 
@@ -53,12 +55,24 @@ const PlaceOrder = () => {
                 amount: getCartAmount() + delivery_fee
             }
 
+
+
             switch (method) {
 
                 //api calls for COD
                 case 'cod':
 
-                    const response = await axios.post(backendUrl + '/api/order/place')
+                    const response = await axios.post(backendUrl + '/api/order/place', orderData, { headers: { token } });
+                    console.log(response.data);
+
+                    if (response.data.success) {
+                        setCartItems({})
+                        navigate('/orders')
+                    }
+                    else {
+                        toast.error(response.data.message)
+                    }
+
 
                     break;
 
@@ -69,7 +83,8 @@ const PlaceOrder = () => {
 
 
         } catch (error) {
-
+            console.error(error);
+            toast.error(error.message)
         }
     }
 
@@ -94,7 +109,7 @@ const PlaceOrder = () => {
                 </div>
                 <div className='flex gap-3'>
                     <input required onChange={onChangeHandler} name='zipcode' value={formData.zipcode} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="number" placeholder='Zipcode' />
-                    <input required onChange={onChangeHandler} name='country' value={formData.coutnry} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='country' />
+                    <input required onChange={onChangeHandler} name='country' value={formData.country} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="text" placeholder='country' />
                 </div>
                 <input required onChange={onChangeHandler} name='phone' value={formData.phone} className='border border-gray-300 rounded py-1.5 px-3.5 w-full' type="number" placeholder='Phone Number' />
 
